@@ -1,8 +1,10 @@
 #Flask App file
 import os 
-from flask import Flask, render_template, request, redirect, url_for, 
+from flask import Flask, render_template, request, redirect, url_for
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+Bootstrap(app)
 
 #Initial page
 @app.route('/')
@@ -18,6 +20,6 @@ def form_input():
         #go to calendar
         return redirect(url_for('calendar.html'))
     return render_template('form_input.html')
-
+'''
 @app.route('/calendar')
-def 
+def '''

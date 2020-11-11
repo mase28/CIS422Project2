@@ -1,25 +1,66 @@
-<!DOCTYPE HTML>
-<html>
-    <body>
-        <h1 style="text-align: center;">REGISTRATION FORM</h1> 
-        <form action="/calendar.html" method="post">
-            <label for="sleep_time">Sleep Time:</label>
-            <input type="text" id="sleep_time" name="sleep_time"><br><br>
-            
-            <label for="assignment">Assignment Name:</label>
-            <input type="text" id="assignment" name="assignment"><br><br>
-            
-            <label for="est_time">Estimated Time:</label>
-            <input type="text" id="est_time" name="est_time"><br><br>
-            
-            <label for="percentage">Percentage of Grade:</label>
-            <input type="text" id="percentage" name="percentage"><br><br>
-            
-            <label for="notes">Notes:</label>
-            <input type="text" id="notes" name="notes"><br><br>
+{% extends bootstrap/base.html %}
 
-            <button type="submit" value="Submit">Get Schedule!</button>
-            <button type="reset" value="Reset">Reset</button>
-        </form>
-    </body>
-</html>
+{% block content %}
+<form>
+    <!-- Sleep Times -->
+    <div class="form-group">
+      <label for="wake_time">Please enter the time you usually wake up:</label>
+      <input type="time" id="wake_time" name="wake_time">
+    </div>
+
+    <div class="form-group">
+        <label for="sleep_time">Please enter the time you usually go to bed by:</label>
+        <input type="time" id="sleep_time" name="sleep_time">
+      </div>
+
+    <!-- No HW Block Times
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Example select</label>
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect2">Example multiple select</label>
+      <select multiple class="form-control" id="exampleFormControlSelect2">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+-->
+
+    <!-- Button that continues to next part of the same page-->
+    <!-- Add assignments-->
+
+    <!-- Assignment Name -->
+    <div class="form-group">
+        <label for="assignment">Name of Assignment</label>
+        <input type="text" class="form-control" id="assignment" name="assignment" >
+      </div>
+
+    <!-- Estimated Time to Finish Assignment -->
+    <div class="form-group">
+        <label for="est_time">Estimated Time to Finish Assignment (in Hours)</label>
+        <input type="text" class="form-control" id="est_time" name="est_time" >
+      </div>
+
+    <!-- Percentage of Grade -->
+    <div class="form-group">
+        <label for="percentage">Percentage of Grade</label>
+        <input type="text" class="form-control" id="percentage" name="percentage" >
+      </div>
+
+    <!-- Notes -->
+    <div class="form-group">
+        <label for="notes">Additional Notes:</label>
+        <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+      </div>
+  </form>
+{% endblock %}
