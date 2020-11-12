@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'MakeSecretKey'
 Bootstrap(app)
 
 #Initial page
@@ -13,13 +14,7 @@ def index():
 
 @app.route('/form_input', methods=['GET', 'POST'])
 def form_input():
-    if request.method == 'POST':
-        #do stuff when the form is submitted
-
-        # redirect to end the POST handling
-        #go to calendar
-        return redirect(url_for('calendar.html'))
     return render_template('form_input.html')
-'''
-@app.route('/calendar')
-def '''
+
+if __name__=="__main__":
+    app.run(debug=True)
