@@ -1,52 +1,15 @@
 {% extends "base.html" %}
 
+{% block title %} Homework Planner {% endblock %}
+
 {% block content %}
-<form>
-    <!-- Sleep Times -->
-    <div class="form-group">
-      <label for="wake_time">Please enter the time you usually wake up:</label>
-      <input type="time" id="wake_time" name="wake_time">
-    </div>
+<div class="break">
+  <h1>Breaks</h1>
+  <a href="break_form" class="btn btn-primary" type="button">Add Break</a>
+</div>
 
-    <div class="form-group">
-        <label for="sleep_time">Please enter the time you usually go to bed by:</label>
-        <input type="time" id="sleep_time" name="sleep_time">
-      </div>
-
-    <!-- No HW Block Times -->
-
-   
-
-    <!-- Button that continues to next part of the same page-->
-    <!-- Add assignments-->
-
-    <!-- Assignment Name -->
-    <div class="form-group">
-        <label for="assignment">Name of Assignment</label>
-        <input type="text" class="form-control" id="assignment" name="assignment" >
-      </div>
-
-    <!-- Estimated Time to Finish Assignment -->
-    <div class="form-group">
-        <label for="est_time">Estimated Time to Finish Assignment (in Hours)</label>
-        <input type="text" class="form-control" id="est_time" name="est_time" >
-      </div>
-
-    <!-- Percentage of Grade -->
-    <div class="form-group">
-        <label for="percentage">Percentage of Grade</label>
-        <input type="text" class="form-control" id="percentage" name="percentage" >
-      </div>
-
-    <!-- Notes -->
-    <div class="form-group">
-        <label for="notes">Additional Notes:</label>
-        <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
-      </div>
-
-    <!-- Get Schedule Button -->
-    <div class="form-group">
-        <a href="{{ url_for('calendar') }}" class="btn btn-link" type="button">Get Schedule!</a>
-    </div>
-  </form>
+<div class="assignment">
+  <h1>Assignments</h1>
+  <a href="assign_form" class="btn btn-primary" type="button">Add Assignment</a>
+</div>
 {% endblock %}
