@@ -13,17 +13,18 @@ def index():
     return render_template('index.html')
 
 #Form input
-@app.route('/form_input')
+@app.route('/form_input', methods=['GET', 'POST'])
 def form_input():
+    #if submit is pressed then go to calender
     return render_template('form_input.html')
 
 #Add Break
-@app.route('/break_form')
+@app.route('/break_form', methods=['GET', 'POST'])
 def break_form():
     return render_template('break_form.html')
 
 #Add Assignment
-@app.route('/assign_form')
+@app.route('/assign_form', methods=['GET', 'POST'])
 def assign_form():
     return render_template('assign_form.html')
 
