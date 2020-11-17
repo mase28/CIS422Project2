@@ -16,6 +16,7 @@ def index():
 @app.route('/form_input', methods=['GET', 'POST'])
 def form_input():
     #if submit is pressed then go to calender
+    #add stuff 
     return render_template('form_input.html')
 
 #Add Break
