@@ -34,11 +34,13 @@
 </form>
 
 <script>
+  
+  //array to store assignment objects
   let assignments = [];
   // example {name:'Assignment 1', worth: 20%, time: 3 hrs, notes: 'misc. notes'}
   const addAssignment = (ev)=>{
       ev.preventDefault();  //to stop the form submitting
-      
+
       //assignment object
       let assignment = {
           name: document.getElementById('assign_name').value,
