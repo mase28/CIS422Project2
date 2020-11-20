@@ -54,7 +54,8 @@
       pre.textContent = '\n' + JSON.stringify(assignments, '\t', 2);
 
       //saving to localStorage
-      localStorage.setItem('MyMovieList', JSON.stringify(assignments) );
+      //localStorage.setItem('MyAssignmentList', JSON.stringify(assignments) );
+      // HOW TO GET THIS TO THE BACKEND
   }
   document.addEventListener('DOMContentLoaded', ()=>{
       document.getElementById('btn').addEventListener('click', addAssignment);
