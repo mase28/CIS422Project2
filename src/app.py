@@ -22,7 +22,7 @@ def form_input():
 #Add Break
 @app.route('/break_form', methods=['GET', 'POST'])
 def break_form():
-    if request.method == 'POST':
+    if request.method == 'POST': #not working
         break_name = request.form['breakname']
         print("break: ", break_name)
     return render_template('break_form.html')
