@@ -1,4 +1,6 @@
 from assignment import *
+from priority import *
+
 
 class Schedule(object):
 	"""docstring for Schedule"""
@@ -9,9 +11,13 @@ class Schedule(object):
 		self.unassigned = []
 		for i in range(7):
 			self.schedule[self.days[i]] = {}
-			for j in range(1, 25):
-				time1 = str(j)
-				time2 = str(j) + ":30"
+			for j in range(0, 24):
+				if j%12 == 0:
+					j1 = 12
+				else:
+					j1 = j%12
+				time1 = str(j1)
+				time2 = str(j1) + ":30"
 				self.schedule[self.days[i]][time1] = "Available"
 				self.schedule[self.days[i]][time2] = "Available"
 
