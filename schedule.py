@@ -177,8 +177,6 @@ class Schedule(object):
 					current += 1
 				else:
 					current += 1
-		print(earliest)
-		print(bedtime)
 
 		flag = False
 		for time in self.schedule["Monday"]:
