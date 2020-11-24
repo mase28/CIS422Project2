@@ -153,26 +153,61 @@ class Schedule(object):
 		</html>
 		""")
 
+		earliest = ""
+		bedtime = ""
+		current = 0
+		least = 49
+		latest = 0
+		for day in self.schedule:
+			for time in self.schedule[day]:
+				if self.schedule[day][time] == "Sleep":
+					current += 1
+					if current > least:
+						if current > latest:
+							bedtime = time
+							latest = current
+							current = 0
+							break
+						else:
+							current = 0
+							break
+				elif current < least:
+					earliest = time 
+					least = current
+					current += 1
+				else:
+					current += 1
+		print(earliest)
+		print(bedtime)
+
+		flag = False
 		for time in self.schedule["Monday"]:
-			row = (
-				f"""
-				  <tr>
-				    <td>{time}</td>
-				    <td>{self.schedule["Monday"][time]}</td>
-				    <td>{self.schedule["Tuesday"][time]}</td>
-				    <td>{self.schedule["Wednesday"][time]}</td>
-				    <td>{self.schedule["Thursday"][time]}</td>
-				    <td>{self.schedule["Friday"][time]}</td>
-				    <td>{self.schedule["Saturday"][time]}</td>
-				    <td>{self.schedule["Sunday"][time]}</td>
-				  </tr>
-				""")
-			output_first += row
+			if time == earliest:
+				flag = True
+			elif time == bedtime:
+				flag = False
+			if flag:
+				row = (
+					f"""
+					  <tr>
+					    <td>{time}</td>
+					    <td>{self.schedule["Monday"][time]}</td>
+					    <td>{self.schedule["Tuesday"][time]}</td>
+					    <td>{self.schedule["Wednesday"][time]}</td>
+					    <td>{self.schedule["Thursday"][time]}</td>
+					    <td>{self.schedule["Friday"][time]}</td>
+					    <td>{self.schedule["Saturday"][time]}</td>
+					    <td>{self.schedule["Sunday"][time]}</td>
+					  </tr>
+					""")
+				output_first += row
 		
-		missed_assignments = ""
-		for assignment in self.unassigned:
-			missed_assignments += str(assignment) + ", "
-		output_sec = f"<p>The assignments, {missed_assignments}were not scheduled for their full duration because either other higher priority assignments were scheduled first, or due to the breaks and sleep schedule, there wasn't enough time available to schedule them.</p>"
+		output_sec = ""
+		if len(self.unassigned) > 0:
+			missed_assignments = ""
+			for assignment in self.unassigned:
+				missed_assignments += str(assignment) + ", "
+			output_sec = f"<p>The assignments, {missed_assignments}were not scheduled for their full duration because either other higher priority assignments were scheduled first, or due to the breaks and sleep schedule, there wasn't enough time available to schedule them.</p>"
 
 		output_first += output_sec + output_last
 
