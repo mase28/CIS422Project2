@@ -12,12 +12,8 @@ class Schedule(object):
 		for i in range(7):
 			self.schedule[self.days[i]] = {}
 			for j in range(0, 24):
-				if j%12 == 0:
-					j1 = 12
-				else:
-					j1 = j%12
-				time1 = str(j1)
-				time2 = str(j1) + ":30"
+				time1 = str(j)
+				time2 = str(j) + ":30"
 				self.schedule[self.days[i]][time1] = "Available"
 				self.schedule[self.days[i]][time2] = "Available"
 
