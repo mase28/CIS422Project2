@@ -3,8 +3,13 @@ from assignment import *
 
 def main(sleep: (int, int), breaks: list, assignments: list):
 	sched = Schedule()
-	for day in sched.schedule:
-		sched.add_sleep(day, sleep[0], sleep[1])
+	sched.add_sleep("Monday", "23", "6:30")
+	sched.add_sleep("Tuesday", "22", "9:30")
+	sched.add_sleep("Wednesday", "21", "8:30")
+	sched.add_sleep("Thursday", "23", "5:30")
+	sched.add_sleep("Friday", "23", "6:30")
+	sched.add_sleep("Saturday", "23", "6:30")
+	sched.add_sleep("Sunday", "23", "6:30")
 
 	for i in range(len(breaks)):
 		for j in range(len(breaks[i])):
