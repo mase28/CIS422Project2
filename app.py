@@ -1,18 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from schedule import Schedule
 from assignment import Assignment
 import sys
 
 app = Flask(__name__)
 
-schedule = Schedule()
+session["schedule"] = Schedule()
 
 # Initial page - Welcome
 
 
 @app.route("/")
 def index():
-    schedule = Schedule()
+    session["schedule"] = Schedule()
     return render_template("index.html")
 
 # Form input
@@ -45,7 +45,7 @@ def break_form():
                 break_start = start[0]
         breakdays = request.form.getlist("weekday")
         for day in breakdays:
-            schedule.add_break(day, break_name, break_start, break_end)
+            session["schedule"].add_break(day, break_name, break_start, break_end)
         return redirect(url_for("form_input"))
     else:
         return render_template("break_form.html")
@@ -67,7 +67,7 @@ def assign_form():
         else:
             time = timeL[0] + ":30"
         assignment = Assignment(assign_name, int(percent), int(est_time), (day, time), int(priority))
-        schedule.add_assignment(assignment)
+        session["schedule"].add_assignment(assignment)
         return redirect(url_for("form_input"))
     else:
         return render_template("assign_form.html")
@@ -81,10 +81,10 @@ def priority_survey():
         sleep_start = request.form["sleep_start"]
         sleep_end = request.form["sleep_end"]
         for days in schedule.days:
-            schedule.add_sleep(days, sleep_start, sleep_end)
+            session["schedule"].add_sleep(days, sleep_start, sleep_end)
         schedule.priority = priority
         schedule.matrix = matrix
-        schedule.create_calendar()
+        session["schedule"].create_calendar()
         return render_template("output.html")
     else:
         return render_template("priority_survey.html")
