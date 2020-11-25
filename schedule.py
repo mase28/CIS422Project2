@@ -85,7 +85,8 @@ class Schedule(object):
 			if flag:
 				self.schedule[next_day][time] = "Sleep"
 
-	def add_break(self, day, time1, time2):
+	def add_break(self, day, name, time1, time2):
+		print(f"name: {name}, day: {day}, time1: {time1}, time2: {time2}")
 		flag = False
 		for time in self.schedule[day]:
 			if time == time1:
@@ -94,7 +95,7 @@ class Schedule(object):
 				flag = False
 			
 			if flag:
-				self.schedule[day][time] = "Break"
+				self.schedule[day][time] = name
 
 	def __str__(self):
 		return str(self.schedule)
