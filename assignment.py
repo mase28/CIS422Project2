@@ -1,12 +1,11 @@
 class Assignment(object):
 
-	def __init__(self, name, percent, length, dueDate, priority, info):
+	def __init__(self, name, percent, length, dueDate, priority):
 		self.name = name
 		self.percent = percent
 		self.time = length
 		self.due = dueDate
 		self.priority = priority
-		self.notes = info
 
 	def __str__(self):
 		return self.name

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %} Priority Survey {% endblock %}
+
+{% block content %}
+<form method="post" action="{{ url_for('priority_survey') }}">
+	<div class = priority_survey>
+		<h3>Determine How Assignments are Prioritized:</h3><br>
+		<input type="radio" id="standard" name="priority" value="standard">
+	    <label for="standard">Standard</label><br>
+	    <p>Standard prioritization puts a 50% weight on the due date, 30% on your personal priority, and 20% on the assignment percent worth. Length of the assignment is not factored into priority</p><br>
+	    <input type="radio" id="early" name="priority" value="early">
+	    <label for="early">Early</label><br>
+	    <p>Early prioritization puts a 50% weight on the due date, 10% on your personal priority, 10% on the assignment percent worth, and 30% on the length of the assignment. The weight on the length is designed to make shorter assignments have higher priority.</p><br>  
+	    <input type="radio" id="late" name="priority" value="late">   
+	    <label for="late">Late</label><br>
+	    <p>Late prioritization has the same weighting as early prioritization except for the weighting on the length of the assignment is designed to make longer assignments have higher priority</p><br>
+	</div>
+	<div class = schedule_survey>
+		<h3>Determine How the Scheduling Works:</h3><br>
+		<input type="radio" name="matrix" id="group" value="group">
+		<label for="group">Group</label><br>
+		<p>Group scheduling means that work sessions will consist of one assignment until that assignment is finished.</p>
+		<input type="radio" name="matrix" id="split" value="split">
+		<label for="split">Split</label><br>
+		<p>Split scheduling means that work sessions will be split up with multiple assignments.</p>
+	</div>
+	<button type="submit" class="btn btn-primary">Generate Schedule</button>
+</form>
+{% endblock %}

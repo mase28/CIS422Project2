@@ -9,15 +9,18 @@ class Schedule(object):
 		self.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 		self.assignments = []
 		self.unassigned = []
+		self.matrix = ""
+		self.priority = ""
 		for i in range(7):
 			self.schedule[self.days[i]] = {}
 			for j in range(0, 24):
-				time1 = str(j)
-				time2 = str(j) + ":30"
+				time1 = str(j).zfill(2)
+				time2 = str(j).zfill(2) + ":30"
 				self.schedule[self.days[i]][time1] = "Available"
 				self.schedule[self.days[i]][time2] = "Available"
 
 	def add_assignment(self, assignment):
+		#print(f"name: {assignment.name}, percent: {assignment.percent}, priority: {assignment.priority}, length: {assignment.time}, due: {assignment.due}")
 		self.assignments.append(assignment)
 
 	def __prioritize_assignments(self):
@@ -29,6 +32,7 @@ class Schedule(object):
 		flag = False
 		while i < len(self.assignments):
 			assignment = self.assignments[i]
+			print(f"name: {assignment.name}, percent: {assignment.percent}, priority: {assignment.priority}, length: {assignment.time}, due: {assignment.due}")
 			day = assignment.due[0]
 			for time in reversed(self.schedule[day]):
 				if time == assignment.due[1]:
@@ -82,7 +86,6 @@ class Schedule(object):
 				self.schedule[next_day][time] = "Sleep"
 
 	def add_break(self, day, name, time1, time2):
-		print(f"name: {name}, day: {day}, time1: {time1}, time2: {time2}")
 		flag = False
 		for time in self.schedule[day]:
 			if time == time1:
@@ -152,6 +155,9 @@ class Schedule(object):
     	"""
     	</table>
 
+    	<p>Press return to return to the home page and restart</p>
+    	<a href="/" class="btn btn-primary" type="button">Return</a>
+
 		</body>
 		</html>
 		""")
@@ -207,11 +213,11 @@ class Schedule(object):
 		if len(self.unassigned) > 0:
 			missed_assignments = ""
 			for assignment in self.unassigned:
-				missed_assignments += str(assignment) + ", "
+				missed_assignments += (str(assignment) + ", ")
 			output_sec = f"<p>The assignments, {missed_assignments}were not scheduled for their full duration because either other higher priority assignments were scheduled first, or due to the breaks and sleep schedule, there wasn't enough time available to schedule them.</p>"
 
-		output_first += output_sec + output_last
+		output_first += (output_sec + output_last)
 
-		f = open("output.html", "w")
+		f = open("templates/output.html", "w")
 		f.write(output_first)
 		f.close()
