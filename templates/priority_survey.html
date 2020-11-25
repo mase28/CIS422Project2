@@ -6,7 +6,7 @@
 <form method="post" action="{{ url_for('priority_survey') }}">
 	<div class = priority_survey>
 		<h3>Determine How Assignments are Prioritized:</h3><br>
-		<input type="radio" id="standard" name="priority" value="standard">
+		<input type="radio" id="standard" name="priority" value="standard" checked="checked">
 	    <label for="standard">Standard</label><br>
 	    <p>Standard prioritization puts a 50% weight on the due date, 30% on your personal priority, and 20% on the assignment percent worth. Length of the assignment is not factored into priority</p><br>
 	    <input type="radio" id="early" name="priority" value="early">
@@ -18,13 +18,20 @@
 	</div>
 	<div class = schedule_survey>
 		<h3>Determine How the Scheduling Works:</h3><br>
-		<input type="radio" name="matrix" id="group" value="group">
+		<input type="radio" name="matrix" id="group" value="group" checked="checked">
 		<label for="group">Group</label><br>
 		<p>Group scheduling means that work sessions will consist of one assignment until that assignment is finished.</p>
 		<input type="radio" name="matrix" id="split" value="split">
 		<label for="split">Split</label><br>
 		<p>Split scheduling means that work sessions will be split up with multiple assignments.</p>
 	</div>
-	<button type="submit" class="btn btn-primary">Generate Schedule</button>
+	<div class="sleep_survey">
+		<h3>Enter Sleep Range:</h3>
+		<label for="sleep_start">Start</label>
+		<input type="time" name="sleep_start" value="00:00">
+		<label for="sleep_end">End</label>
+		<input type="time" name="sleep_end" value="00:00">
+	</div>
+	<button type="submit" class="btn btn-primary">Continue</button>
 </form>
 {% endblock %}

@@ -7,7 +7,8 @@ class Schedule(object):
 	def __init__(self):
 		self.schedule = {}
 		self.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-		self.assignments = []
+		self.assignments_dicts = []
+		self.assignments_objs = []
 		self.unassigned = []
 		self.matrix = ""
 		self.priority = ""
@@ -20,17 +21,20 @@ class Schedule(object):
 				self.schedule[self.days[i]][time2] = "Available"
 
 	def add_assignment(self, assignment):
-		self.assignments.append(assignment)
+		self.assignments_dicts.append(assignment)
 
 	def __prioritize_assignments(self):
-		self.assignments = sorted(self.assignments, key=lambda assignment: (assignment.percent/assignment.time), reverse=True)
+		for assign_dict in self.assignments_dicts:
+			assignment = Assignment(assign_dict["name"], assign_dict["percent"], assign_dict["time"], assign_dict["due"], assign_dict["priority"])
+			self.assignments_objs.append(assignment)
+		self.assignments_objs = sorted(self.assignments_objs, key=lambda assignment: (assignment.percent/assignment.time), reverse=True)
 
 	def __generate_schedule(self):
 		self.__prioritize_assignments()
 		i = 0
 		flag = False
-		while i < len(self.assignments):
-			assignment = self.assignments[i]
+		while i < len(self.assignments_objs):
+			assignment = self.assignments_objs[i]
 			day = assignment.due[0]
 			for time in reversed(self.schedule[day]):
 				if time == assignment.due[1]:
@@ -49,7 +53,7 @@ class Schedule(object):
 			
 			if assignment.time != 0:
 				if day == "Monday":
-					self.unassigned.append(assignment)
+					self.unassigned.append(assignment.name)
 					flag = False
 					i += 1
 				else: 
@@ -209,7 +213,7 @@ class Schedule(object):
 		if len(self.unassigned) > 0:
 			missed_assignments = ""
 			for assignment in self.unassigned:
-				missed_assignments += (str(assignment) + ", ")
+				missed_assignments += assignment + ", "
 			output_sec = f"<p>The assignments, {missed_assignments}were not scheduled for their full duration because either other higher priority assignments were scheduled first, or due to the breaks and sleep schedule, there wasn't enough time available to schedule them.</p>"
 
 		output_first += (output_sec + output_last)

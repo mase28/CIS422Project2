@@ -13,5 +13,7 @@
   <a href="assign_form" class="btn btn-primary" type="button">Add Assignment</a>
 </div>
 <br>
-<a href="priority_survey" class="btn btn-primary" type="button">Continue</a>
+<form method="post" action="{{ url_for('form_input') }}">
+	<button type="submit" class="btn btn-primary">Generate Schedule</button>
+</form>
 {% endblock %}
