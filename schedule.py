@@ -16,7 +16,7 @@ class Schedule(object):
 		for i in range(7):
 			self.schedule[self.days[i]] = {}
 			for j in range(0, 24):
-				time1 = str(j).zfill(2)
+				time1 = str(j).zfill(2) + ":00"
 				time2 = str(j).zfill(2) + ":30"
 				self.schedule[self.days[i]][time1] = "Available"
 				self.schedule[self.days[i]][time2] = "Available"

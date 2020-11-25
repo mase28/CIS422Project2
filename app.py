@@ -51,11 +51,11 @@ def break_form():
             if int(end[1]) <= 30:
                 break_end = end[0] + ":30"
             else:
-                break_end = str(int(end[0]) + 1)
+                break_end = str(int(end[0]) + 1) + ":00"
             if int(start[1]) > 30:
                 break_start = start[0] + ":30"
             else:
-                break_start = start[0]
+                break_start = start[0] + ":00"
         sched = session["schedule"]
         schedule = dict2Sched(sched)
         for day in breakdays:
@@ -79,7 +79,7 @@ def assign_form():
         time = request.form["time"]
         timeL = time.split(":")
         if int(timeL[1]) < 30:
-            time = timeL[0]
+            time = timeL[0] + ":00"
         else:
             time = timeL[0] + ":30"
         assignment = Assignment(assign_name, int(percent), int(est_time), (day, time), int(priority))
@@ -104,11 +104,11 @@ def priority_survey():
         if int(end[1]) > 30:
             sleep_end = end[0] + ":30"
         else:
-            sleep_end = end[0]
+            sleep_end = end[0] + ":00"
         if int(start[1]) > 30:
             sleep_start = start[0] + ":30"
         else:
-            sleep_start = start[0]
+            sleep_start = start[0] + ":00"
         sched = session["schedule"]
         schedule = dict2Sched(sched)
         for days in schedule.days:
