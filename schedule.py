@@ -23,8 +23,6 @@ class Schedule(object):
 		self.assignments.append(assignment)
 
 	def __prioritize_assignments(self):
-		for assignment in self.assignments:
-			print(f"name: {assignment.name}, percent: {assignment.percent}, priority: {assignment.priority}, length: {assignment.time}, due: {assignment.due}", file=sys.stderr)
 		self.assignments = sorted(self.assignments, key=lambda assignment: (assignment.percent/assignment.time), reverse=True)
 
 	def __generate_schedule(self):
