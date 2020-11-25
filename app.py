@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from schedule import Schedule
 from assignment import Assignment
 import sys
@@ -46,7 +46,7 @@ def break_form():
         breakdays = request.form.getlist("weekday")
         for day in breakdays:
             schedule.add_break(day, break_name, break_start, break_end)
-        return render_template("submitted_break.html")
+        return redirect(url_for("submitted_break"))
     else:
         return render_template("break_form.html")
 
@@ -68,7 +68,7 @@ def assign_form():
             time = timeL[0] + ":30"
         assignment = Assignment(assign_name, int(percent), int(est_time), (day, time), int(priority))
         schedule.add_assignment(assignment)
-        return render_template("submittedassignment.html")
+        return redirect(url_for("submittedassignment"))
     else:
         return render_template("assign_form.html")
 
