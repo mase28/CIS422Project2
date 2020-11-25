@@ -58,8 +58,6 @@ class Schedule(object):
 							prev_day = self.days[d-1]
 					assignment.due = (prev_day, assignment.due[1])
 
-
-
 	def add_sleep(self, day, time1, time2):
 		flag = False
 		if day == "Sunday":

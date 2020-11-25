@@ -6,6 +6,7 @@ class Assignment(object):
 		self.time = length
 		self.due = dueDate
 		self.priority = priority
+		self.timeval = 0
 
 	def __str__(self):
 		return self.name

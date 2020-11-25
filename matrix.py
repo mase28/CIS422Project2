@@ -1,5 +1,6 @@
 from assignment import *
 from schedule import *
+import math
 
 
 class Event:
@@ -9,6 +10,7 @@ class Event:
 
     def __repr__(self):
         return str(self.name)
+
 
 def createMatrix():
     matrix = [[0]*24 for i in range(7)]
@@ -40,6 +42,7 @@ def createMatrix():
                     return matrix
 """
 
+
 def fill_early_group_sched(matrix, event_list):
     events = len(event_list)
     tracker = 0
@@ -58,6 +61,9 @@ def fill_early_group_sched(matrix, event_list):
                         tracker += 1
                     if tracker == events:
                         return matrix
+            else:
+                hhours_worked = 0
+
 
 def fill_early_split_sched(matrix, event_list):
     n = len(event_list)
@@ -69,17 +75,19 @@ def fill_early_split_sched(matrix, event_list):
         for key in matrix[row]:
             if hhoursWorked == 2:
                 hhoursWorked = 0
+            elif matrix[row][key] != "Available":
+                hhoursWorked = 0
             elif matrix[row][key] == "Available" and totalHours != 0:
-                while valid_events[tracker%n] == -1:
+                while valid_events[math.floor(tracker)%n] == -1:
                     tracker += 1
-                if valid_events[tracker%n] != -1:
-                    matrix[row][key] = event_list[tracker%n].name
+                if valid_events[math.floor(tracker)%n] != -1:
+                    matrix[row][key] = event_list[math.floor(tracker)%n].name
                     hhoursWorked += 0.5
-                    event_list[tracker%n].time -= 0.5
+                    event_list[math.floor(tracker)%n].time -= 0.5
                     totalHours -= 0.5
-                    if event_list[tracker%n].time == 0:
-                        valid_events[tracker%n] = -1
-                    tracker += 1
+                    if event_list[math.floor(tracker)%n].time == 0:
+                        valid_events[math.floor(tracker)%n] = -1
+                    tracker += 0.5
             elif totalHours == 0:
                 return matrix
             else:
@@ -120,19 +128,13 @@ def fill_early_split(matrix, event_list):
     return matrix
 """
 
+Assign1 = Assignment("hw1", 10, 3.5, datetime.date.today() + datetime.timedelta(days=1), 7)
+Assign2 = Assignment("hw2", 3, 0.5, datetime.date.today() + datetime.timedelta(days=3), 4)
+Assign3 = Assignment("hw3", 25, 6, datetime.date.today() + datetime.timedelta(days=5), 10)
+Assign4 = Assignment("hw4", 5, 1.5, datetime.date.today() + datetime.timedelta(days=2), 8)
+Assign5 = Assignment("hw5", 7, 2, datetime.date.today() + datetime.timedelta(days=7), 5)
 
-
-
-
-e1 = Event(4, "h1")
-e2 = Event(3, "h2")
-e3 = Event(1, "h3")
-e4 = Event(6, "h4")
-
-m1= createMatrix()
-#print(fill_early_group(m1, [e1,e2,e3,e4]))
-#print(fill_early_split(m1, [e1,e2,e3,e4]))
 sched = Schedule()
-#print(sched)
-#print(fill_early_group_sched(sched.schedule, [e1,e2,e3,e4]))
-val = fill_early_split_sched(sched.schedule, [e1,e2,e3,e4])
+
+eli = [Assign1, Assign2, Assign3, Assign4, Assign5]
+print(fill_early_split_sched(sched.schedule, eli))
