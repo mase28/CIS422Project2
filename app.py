@@ -78,6 +78,8 @@ def priority_survey():
     if request.method == "POST":
         priority = request.form["priority"]
         matrix = request.form["matrix"]
+        sleep_start = request.form["sleep_start"]
+        sleep_end = request.form["sleep_end"]
         schedule.priority = priority
         schedule.matrix = matrix
         schedule.create_calendar()
