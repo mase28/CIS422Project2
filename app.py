@@ -80,6 +80,8 @@ def priority_survey():
         matrix = request.form["matrix"]
         sleep_start = request.form["sleep_start"]
         sleep_end = request.form["sleep_end"]
+        for days in schedule.days:
+            schedule.add_sleep(days, sleep_start, sleep_end)
         schedule.priority = priority
         schedule.matrix = matrix
         schedule.create_calendar()
