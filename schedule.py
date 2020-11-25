@@ -41,7 +41,7 @@ class Schedule(object):
 
 				if flag:
 					if self.schedule[day][time] == "Available":
-						self.schedule[day][time] = assignment
+						self.schedule[day][time] = assignment.name
 						assignment.time -= .5
 
 					if assignment.time == 0:
