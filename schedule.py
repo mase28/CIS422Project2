@@ -1,6 +1,6 @@
 from assignment import *
 from priority import *
-
+import sys
 
 class Schedule(object):
 	"""docstring for Schedule"""
@@ -20,10 +20,11 @@ class Schedule(object):
 				self.schedule[self.days[i]][time2] = "Available"
 
 	def add_assignment(self, assignment):
-		#print(f"name: {assignment.name}, percent: {assignment.percent}, priority: {assignment.priority}, length: {assignment.time}, due: {assignment.due}")
 		self.assignments.append(assignment)
 
 	def __prioritize_assignments(self):
+		for assignment in self.assignments:
+			print(f"name: {assignment.name}, percent: {assignment.percent}, priority: {assignment.priority}, length: {assignment.time}, due: {assignment.due}", file=sys.stderr)
 		self.assignments = sorted(self.assignments, key=lambda assignment: (assignment.percent/assignment.time), reverse=True)
 
 	def __generate_schedule(self):
@@ -32,7 +33,6 @@ class Schedule(object):
 		flag = False
 		while i < len(self.assignments):
 			assignment = self.assignments[i]
-			print(f"name: {assignment.name}, percent: {assignment.percent}, priority: {assignment.priority}, length: {assignment.time}, due: {assignment.due}")
 			day = assignment.due[0]
 			for time in reversed(self.schedule[day]):
 				if time == assignment.due[1]:
