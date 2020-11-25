@@ -4,15 +4,21 @@ from assignment import Assignment
 import sys
 
 app = Flask(__name__)
+app.secret_key = "b\r\t\xe01\x0c$\x8b\\\x99\x169\xa3Z\x11\x90c\xf5 \xf9y\x0bZ\x9c\x8b"
 
-session["schedule"] = Schedule()
-
-# Initial page - Welcome
-
+def dict2Sched(dictobj):
+    schedule = Schedule()
+    schedule.assignments_objs = dictobj["assignments_objs"]
+    schedule.assignments_dicts = dictobj["assignments_dicts"]
+    schedule.schedule = dictobj["schedule"]
+    schedule.unassigned = dictobj["unassigned"]
+    schedule.priority = dictobj["priority"]
+    schedule.matrix = dictobj["matrix"]
+    return schedule
 
 @app.route("/")
 def index():
-    session["schedule"] = Schedule()
+    session["schedule"] = Schedule().__dict__
     return render_template("index.html")
 
 # Form input
@@ -20,7 +26,13 @@ def index():
 def form_input():
     # if submit is pressed then go to calender
     # add stuff
-    return render_template("form_input.html")
+    if request.method == "POST":
+        schedule = dict2Sched(session["schedule"])
+        schedule.create_calendar()
+        session.pop("schedule")
+        return render_template("output.html")
+    else:
+        return render_template("form_input.html")
 
 
 # Add Break
@@ -30,6 +42,7 @@ def break_form():
         break_name = request.form["breakname"]
         break_start = request.form["startTime"]
         break_end = request.form["endTime"]
+        breakdays = request.form.getlist("weekday")
         if break_start > break_end:
             return render_template("time_input_error.html")
         else:
@@ -43,10 +56,13 @@ def break_form():
                 break_start = start[0] + ":30"
             else:
                 break_start = start[0]
-        breakdays = request.form.getlist("weekday")
+        sched = session["schedule"]
+        schedule = dict2Sched(sched)
         for day in breakdays:
-            session["schedule"].add_break(day, break_name, break_start, break_end)
+            schedule.add_break(day, break_name, break_start, break_end)
+        session["schedule"] = schedule.__dict__
         return redirect(url_for("form_input"))
+        
     else:
         return render_template("break_form.html")
 
@@ -67,7 +83,10 @@ def assign_form():
         else:
             time = timeL[0] + ":30"
         assignment = Assignment(assign_name, int(percent), int(est_time), (day, time), int(priority))
-        session["schedule"].add_assignment(assignment)
+        sched = session["schedule"]
+        schedule = dict2Sched(sched)
+        schedule.add_assignment(assignment.__dict__)
+        session["schedule"] = schedule.__dict__
         return redirect(url_for("form_input"))
     else:
         return render_template("assign_form.html")
@@ -80,12 +99,24 @@ def priority_survey():
         matrix = request.form["matrix"]
         sleep_start = request.form["sleep_start"]
         sleep_end = request.form["sleep_end"]
+        start = sleep_start.split(":")
+        end = sleep_end.split(":")
+        if int(end[1]) > 30:
+            sleep_end = end[0] + ":30"
+        else:
+            sleep_end = end[0]
+        if int(start[1]) > 30:
+            sleep_start = start[0] + ":30"
+        else:
+            sleep_start = start[0]
+        sched = session["schedule"]
+        schedule = dict2Sched(sched)
         for days in schedule.days:
-            session["schedule"].add_sleep(days, sleep_start, sleep_end)
+            schedule.add_sleep(days, sleep_start, sleep_end)
         schedule.priority = priority
         schedule.matrix = matrix
-        session["schedule"].create_calendar()
-        return render_template("output.html")
+        session["schedule"] = schedule.__dict__
+        return redirect(url_for("form_input"))
     else:
         return render_template("priority_survey.html")
 
