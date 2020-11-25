@@ -1,5 +1,5 @@
-from assignment import *
-from schedule import *
+from assignment import Assignment
+from schedule import Schedule
 import math
 
 
