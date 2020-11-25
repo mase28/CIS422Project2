@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %} Time Input Error! {% endblock %}
+
+{%block content%}
+<div class="time_input_error">
+    <p>When entering the time range, the second time must come after the first.</p>
+    <a href="break_form" class="btn btn-primary" type="button">Return</a>
+</div>
+{% endblock %}

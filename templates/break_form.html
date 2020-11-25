@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %} Breaks {% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('break_form') }}">
+  <div class="form-group row">
+    <label for="breakname" class="col-sm-2 col-form-label">Break Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="breakname" id="breakname">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <p>Time is rounded to the nearest half hour</p>
+      <label for="startTime">Start Time</label>
+      <input type="time" class="form-control" name="startTime" value="00:00">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="endTime">End Time</label>
+      <input type="time" class="form-control" name="endTime" value="00:00">
+    </div>
+  </div>
+  <div class="weekDays-selector">
+    <input type="checkbox" id="weekday-mon" name="weekday" class="weekday" value="Monday"/>
+    <label for="weekday-mon">M</label>
+    <input type="checkbox" id="weekday-tue" name="weekday" class="weekday" value="Tuesday"/>
+    <label for="weekday-tue">T</label>
+    <input type="checkbox" id="weekday-wed" name="weekday" class="weekday" value="Wednesday"/>
+    <label for="weekday-wed">W</label>
+    <input type="checkbox" id="weekday-thu" name="weekday" class="weekday" value="Thursday"/>
+    <label for="weekday-thu">Th</label>
+    <input type="checkbox" id="weekday-fri" name="weekday" class="weekday" value="Friday"/>
+    <label for="weekday-fri">F</label>
+    <input type="checkbox" id="weekday-sat" name="weekday" class="weekday" value="Saturday"/>
+    <label for="weekday-sat">S</label>
+    <input type="checkbox" id="weekday-sun" name="weekday" class="weekday" value="Sunday"/>
+    <label for="weekday-sun">S</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Break</button>
+</form>
+
+<p>Return to previous page:</p>
+<a href="form_input" class="btn btn-primary" type="button">Return</a>
+
+{% endblock %}
