@@ -1,5 +1,6 @@
 from assignment import *
 from priority import *
+from matrix import *
 import sys
 
 class Schedule(object):
@@ -27,10 +28,21 @@ class Schedule(object):
 		for assign_dict in self.assignments_dicts:
 			assignment = Assignment(assign_dict["name"], assign_dict["percent"], assign_dict["time"], assign_dict["due"], assign_dict["priority"])
 			self.assignments_objs.append(assignment)
-		self.assignments_objs = sorted(self.assignments_objs, key=lambda assignment: (assignment.percent/assignment.time), reverse=True)
+		if self.priority == "standard":
+			self.assignments_objs = prior_stand(self.assignments_objs)
+		elif self.priority == "early":
+			self.assignments_objs = prior_earl(self.assignments_objs)
+		else:
+			self.assignments_objs = prior_late(self.assignments_objs)
+		#self.assignments_objs = sorted(self.assignments_objs, key=lambda assignment: (assignment.percent/assignment.time), reverse=True)
 
 	def __generate_schedule(self):
 		self.__prioritize_assignments()
+		if self.matrix == "group":
+			self.schedule = fill_early_group_sched(self.schedule, self.assignments_objs)
+		else:
+			self.schedule = fill_early_split_sched(self.schedule, self.assignments_objs)
+		"""
 		i = 0
 		flag = False
 		while i < len(self.assignments_objs):
@@ -61,7 +73,7 @@ class Schedule(object):
 						if self.days[d] == day:
 							prev_day = self.days[d-1]
 					assignment.due = (prev_day, assignment.due[1])
-
+		"""
 	def add_sleep(self, day, time1, time2):
 		flag = False
 		if day == "Sunday":
