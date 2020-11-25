@@ -142,22 +142,4 @@ val3 = copy.deepcopy(li)
 
 
 
-aas = prior_stand(val1)
-
-for a in aas:
-    print(a.name + ": " +  str(a.time))
-
-print("\n")
-
-aat = prior_earl(val2)
-for b in aat:
-    print(b.name + ": " + str(b.time))
-
-print("\n")
-
-aau = prior_late(val3)
-for c in aau:
-    print(c.name + ": " + str(c.time))
-
-
 
