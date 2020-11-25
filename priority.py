@@ -1,7 +1,5 @@
 import datetime
 import copy
-from assignment import Assignment
-from schedule import Schedule
 
 """     
         self.name = name

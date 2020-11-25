@@ -1,5 +1,3 @@
-from assignment import Assignment
-from schedule import Schedule
 import math
 
 
@@ -128,13 +126,13 @@ def fill_early_split(matrix, event_list):
     return matrix
 """
 
-Assign1 = Assignment("hw1", 10, 3.5, datetime.date.today() + datetime.timedelta(days=1), 7)
-Assign2 = Assignment("hw2", 3, 0.5, datetime.date.today() + datetime.timedelta(days=3), 4)
-Assign3 = Assignment("hw3", 25, 6, datetime.date.today() + datetime.timedelta(days=5), 10)
-Assign4 = Assignment("hw4", 5, 1.5, datetime.date.today() + datetime.timedelta(days=2), 8)
-Assign5 = Assignment("hw5", 7, 2, datetime.date.today() + datetime.timedelta(days=7), 5)
+# Assign1 = Assignment("hw1", 10, 3.5, datetime.date.today() + datetime.timedelta(days=1), 7)
+# Assign2 = Assignment("hw2", 3, 0.5, datetime.date.today() + datetime.timedelta(days=3), 4)
+# Assign3 = Assignment("hw3", 25, 6, datetime.date.today() + datetime.timedelta(days=5), 10)
+# Assign4 = Assignment("hw4", 5, 1.5, datetime.date.today() + datetime.timedelta(days=2), 8)
+# Assign5 = Assignment("hw5", 7, 2, datetime.date.today() + datetime.timedelta(days=7), 5)
 
-sched = Schedule()
+# sched = Schedule()
 
-eli = [Assign1, Assign2, Assign3, Assign4, Assign5]
-print(fill_early_split_sched(sched.schedule, eli))
+# eli = [Assign1, Assign2, Assign3, Assign4, Assign5]
+# print(fill_early_split_sched(sched.schedule, eli))
