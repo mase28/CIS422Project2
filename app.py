@@ -46,7 +46,7 @@ def break_form():
         breakdays = request.form.getlist("weekday")
         for day in breakdays:
             schedule.add_break(day, break_name, break_start, break_end)
-        return redirect(url_for("submitted_break"))
+        return redirect(url_for("form_input"))
     else:
         return render_template("break_form.html")
 
@@ -68,7 +68,7 @@ def assign_form():
             time = timeL[0] + ":30"
         assignment = Assignment(assign_name, int(percent), int(est_time), (day, time), int(priority))
         schedule.add_assignment(assignment)
-        return redirect(url_for("submittedassignment"))
+        return redirect(url_for("form_input"))
     else:
         return render_template("assign_form.html")
 
