@@ -43,7 +43,7 @@ def sortbyDueDate(AssignmentList):
     for v in AssignmentList:
         v.due = convertdate(v.due)
     for a in AssignmentList:
-        dur = a.due-datetime.date.today()
+        dur = a.due-datetime.datetime.today()
         dur_val = (dur.total_seconds()/3600)
         a.due = dur_val
     #newAssignmentList = sorted(AssignmentList, key=lambda assign: assign.due)
@@ -129,25 +129,19 @@ def prior_late(AssignmentList):
 
 
 
-Assign1 = Assignment("hw1", 10, 3.5, datetime.date.today() + datetime.timedelta(days=1), 7)
-Assign2 = Assignment("hw2", 3, 0.5, datetime.date.today() + datetime.timedelta(days=3), 4)
-Assign3 = Assignment("hw3", 25, 6, datetime.date.today() + datetime.timedelta(days=5), 10)
-Assign4 = Assignment("hw4", 5, 1.5, datetime.date.today() + datetime.timedelta(days=2), 8)
-Assign5 = Assignment("hw5", 7, 2, datetime.date.today() + datetime.timedelta(days=7), 5)
+Assign1 = Assignment("hw1", 10, 3.5, ("Monday", "11:30"), 7)
+Assign2 = Assignment("hw2", 3, 0.5, ("Wednesday", "18:00"), 4)
+Assign3 = Assignment("hw3", 25, 6, ("Friday", "17:00"), 10)
+Assign4 = Assignment("hw4", 5, 1.5, ("Tuesday", "15:30"), 8)
+Assign5 = Assignment("hw5", 7, 2, ("Sunday", "18:00"), 5)
 
 li = [Assign1, Assign2, Assign3, Assign4, Assign5]
 val1 = copy.deepcopy(li)
 val2 = copy.deepcopy(li)
 val3 = copy.deepcopy(li)
-#priority_standard(li)
-#priority_early(li)
-#priority_long(li)
-
-val = "8:30"
-print(val.split(":"))
 
 
-"""
+
 aas = prior_stand(val1)
 
 for a in aas:
@@ -164,7 +158,6 @@ print("\n")
 aau = prior_late(val3)
 for c in aau:
     print(c.name + ": " + str(c.time))
-"""
 
-a1 = ("Wednesday", "8:30")
-print(convertdate(a1))
+
+
