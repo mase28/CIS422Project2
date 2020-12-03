@@ -52,7 +52,7 @@ def sortbyDueDate(AssignmentList):
     for b in newAssignmentList:
         new_li.append(b.due)
     for c in newAssignmentList:
-        c.due = ((-(c.due - min(new_li))/(max(new_li)-min(new_li)))+1)*10
+        c.due = ((-(c.due - min(new_li)))/((max(new_li)-min(new_li)+1)*10))
     return newAssignmentList
 
 
