@@ -54,6 +54,8 @@ def sortbyDueDate(AssignmentList):
     for c in newAssignmentList:
         if len(new_li)<=1:
             c.due = 10
+        elif max(new_li) == min(new_li):
+            c.due = 10
         else:
             c.due = ((-(c.due - min(new_li)))/(max(new_li)-min(new_li)+1))*10
     return newAssignmentList
@@ -61,13 +63,14 @@ def sortbyDueDate(AssignmentList):
 
 def sortbyPercent(AssignmentList):
     new_li = []
-
     for a in AssignmentList:
         a.percent = (a.percent/(a.time*60))
     for b in AssignmentList:
         new_li.append(b.percent)
     for c in AssignmentList:
-        if len(new_li) <=1:
+        if len(new_li) <= 1:
+            c.percent = 10
+        elif max(new_li) == min(new_li):
             c.percent = 10
         else:
             c.percent = ((c.percent-min(new_li))/(max(new_li)-min(new_li)))*10
@@ -82,6 +85,8 @@ def sortbyLong(AssignmentList):
     for b in AssignmentList:
         if len(new_li) <=1:
             b.timeval = b.time*(10/b.time)
+        elif max(new_li) == min(new_li):
+            b.timeval = 10
         else:
             b.timeval = ((b.time-min(new_li))/(max(new_li)-min(new_li)))*10
     #newAssignmentList = sorted(AssignmentList, key=lambda assign: assign.time, reverse=True)
@@ -93,7 +98,12 @@ def sortbyShort(AssignmentList):
     for a in AssignmentList:
         new_li.append(a.time)
     for b in AssignmentList:
-        b.timeval = ((-(b.time - min(new_li))/(max(new_li)-min(new_li)+1))*10)
+        if len(new_li) <= 1:
+            b.timeval = 10
+        elif max(new_li) == min(new_li):
+            b.timeval = 10
+        else:
+            b.timeval = ((-(b.time - min(new_li))/(max(new_li)-min(new_li)+1))*10)
     #newAssignmentList = sorted(AssignmentList, key=lambda assign: assign.time, reverse=True)
     return AssignmentList
 
@@ -137,27 +147,13 @@ def prior_late(AssignmentList):
 
 
 
-Assign1 = Assignment("hw1", 10, 3.5, ("Monday", "11:30"), 7)
-Assign2 = Assignment("hw2", 3, 0.5, ("Wednesday", "18:00"), 4)
-Assign3 = Assignment("hw3", 25, 6, ("Friday", "17:00"), 10)
-Assign4 = Assignment("hw4", 5, 1.5, ("Tuesday", "15:30"), 8)
-Assign5 = Assignment("hw5", 7, 2, ("Sunday", "18:00"), 5)
-
-li = [Assign1, Assign2, Assign3, Assign4, Assign5]
-Assign2 = Assignment("hw1", 5, 2.5, ("Tuesday", "12:00"), 9)
-li2 = [Assign2]
-val1 = copy.deepcopy(li)
-val2 = copy.deepcopy(li)
-val3 = copy.deepcopy(li)
-val4 = copy.deepcopy(li2)
-val5 = copy.deepcopy(li2)
-val6 = copy.deepcopy(li2)
-print(prior_late(val1))
-print(prior_earl(val2))
-print(prior_stand(val3))
-print(prior_stand(val4))
-print(prior_earl(val5))
-print(prior_late(val6))
+#Assign1 = Assignment("hw1", 10, 3.5, ("Monday", "11:30"), 7)
+#Assign2 = Assignment("hw2", 3, 0.5, ("Wednesday", "18:00"), 4)
+#Assign3 = Assignment("hw3", 25, 6, ("Friday", "17:00"), 10)
+#Assign4 = Assignment("hw4", 5, 1.5, ("Tuesday", "15:30"), 8)
+#Assign5 = Assignment("hw5", 7, 2, ("Sunday", "18:00"), 5)
+#Assign6 = Assignment("hw6", 10, 4, ("Wednesday", "15:00"), 8)
+#Assign7 = Assignment("hw7", 5, 2, ("Monday", "18:00"), 6)
 
 
 

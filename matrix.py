@@ -1,4 +1,5 @@
 import math
+import datetime
 
 
 class Event:
@@ -45,22 +46,25 @@ def fill_early_group_sched(matrix, event_list):
     events = len(event_list)
     tracker = 0
     hhours_worked = 0
+    totalHours = sum([a.time for a in event_list])
     for row in matrix:
         for key in matrix[row]:
-            if matrix[row][key] == "Available":
-                hhours_worked += 0.5
-                if hhours_worked == 2.5:
-                    hhours_worked = 0
-                    continue
-                else:
-                    matrix[row][key] = event_list[tracker]
-                    event_list[tracker].time -= 0.5
-                    if event_list[tracker].time == 0:
-                        tracker += 1
-                    if tracker == events:
-                        return matrix
-            else:
+            if hhours_worked == 2.5:
                 hhours_worked = 0
+            elif tracker >= events-1:
+                return matrix
+            elif matrix[row][key] != "Available":
+                hhours_worked = 0
+            elif matrix[row][key] == "Available" and totalHours != 0:
+                hhours_worked += 0.5
+                matrix[row][key] = event_list[tracker].name
+                event_list[tracker].time -= 0.5
+                if event_list[tracker].time == 0:
+                    tracker += 1
+            elif totalHours == 0:
+                return matrix
+            else:
+                continue
 
 
 def fill_early_split_sched(matrix, event_list):
@@ -126,13 +130,3 @@ def fill_early_split(matrix, event_list):
     return matrix
 """
 
-# Assign1 = Assignment("hw1", 10, 3.5, datetime.date.today() + datetime.timedelta(days=1), 7)
-# Assign2 = Assignment("hw2", 3, 0.5, datetime.date.today() + datetime.timedelta(days=3), 4)
-# Assign3 = Assignment("hw3", 25, 6, datetime.date.today() + datetime.timedelta(days=5), 10)
-# Assign4 = Assignment("hw4", 5, 1.5, datetime.date.today() + datetime.timedelta(days=2), 8)
-# Assign5 = Assignment("hw5", 7, 2, datetime.date.today() + datetime.timedelta(days=7), 5)
-
-# sched = Schedule()
-
-# eli = [Assign1, Assign2, Assign3, Assign4, Assign5]
-# print(fill_early_split_sched(sched.schedule, eli))
