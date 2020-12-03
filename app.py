@@ -82,6 +82,7 @@ def assign_form():
             time = timeL[0] + ":00"
         else:
             time = timeL[0] + ":30"
+        print(f"name: {assign_name}, percent: {percent}, length: {est_time}, priority: {priority}, day: {day}, time: {time}")
         assignment = Assignment(assign_name, int(percent), int(est_time), (day, time), int(priority))
         sched = session["schedule"]
         schedule = dict2Sched(sched)
