@@ -52,7 +52,10 @@ def sortbyDueDate(AssignmentList):
     for b in newAssignmentList:
         new_li.append(b.due)
     for c in newAssignmentList:
-        c.due = ((-(c.due - min(new_li)))/((max(new_li)-min(new_li)+1)*10))
+        if len(new_li)<=1:
+            c.due = 10
+        else:
+            c.due = ((-(c.due - min(new_li)))/(max(new_li)-min(new_li)+1))*10
     return newAssignmentList
 
 
@@ -64,7 +67,10 @@ def sortbyPercent(AssignmentList):
     for b in AssignmentList:
         new_li.append(b.percent)
     for c in AssignmentList:
-        c.percent = ((c.percent-min(new_li))/(max(new_li)-min(new_li)))*10
+        if len(new_li) <=1:
+            c.percent = 10
+        else:
+            c.percent = ((c.percent-min(new_li))/(max(new_li)-min(new_li)))*10
     #newAssignmentList = sorted(AssignmentList, key=lambda assign: assign.percent, reverse=True)
     newAssignmentList = AssignmentList
     return newAssignmentList
@@ -74,7 +80,10 @@ def sortbyLong(AssignmentList):
     for a in AssignmentList:
         new_li.append(a.time)
     for b in AssignmentList:
-        b.timeval = ((b.time-min(new_li))/(max(new_li)-min(new_li)))*10
+        if len(new_li) <=1:
+            b.timeval = b.time*(10/b.time)
+        else:
+            b.timeval = ((b.time-min(new_li))/(max(new_li)-min(new_li)))*10
     #newAssignmentList = sorted(AssignmentList, key=lambda assign: assign.time, reverse=True)
     newAssignmentList = AssignmentList
     return newAssignmentList
@@ -84,10 +93,9 @@ def sortbyShort(AssignmentList):
     for a in AssignmentList:
         new_li.append(a.time)
     for b in AssignmentList:
-        b.timeval = ((-(b.time - min(new_li))/(max(new_li)-min(new_li)))+1)*10
+        b.timeval = ((-(b.time - min(new_li))/(max(new_li)-min(new_li)+1))*10)
     #newAssignmentList = sorted(AssignmentList, key=lambda assign: assign.time, reverse=True)
-    newAssignmentList = AssignmentList
-    return newAssignmentList
+    return AssignmentList
 
 
 def sortMechanism(AssignmentList):
@@ -124,7 +132,7 @@ def prior_late(AssignmentList):
     ti = sortbyLong(A2)
     for i in range(len(new)):
         new[i].timeval = ti[i].timeval
-    new_val = sorted(new, key=lambda  assign: assign.due*0.5+assign.timeval*0.3+assign.priority*0.1+assign.percent*0.1, reverse=True)
+    new_val = sorted(new, key=lambda assign: assign.due*0.5+assign.timeval*0.3+assign.priority*0.1+assign.percent*0.1, reverse=True)
     return new_val
 
 
@@ -136,10 +144,20 @@ Assign4 = Assignment("hw4", 5, 1.5, ("Tuesday", "15:30"), 8)
 Assign5 = Assignment("hw5", 7, 2, ("Sunday", "18:00"), 5)
 
 li = [Assign1, Assign2, Assign3, Assign4, Assign5]
+Assign2 = Assignment("hw1", 5, 2.5, ("Tuesday", "12:00"), 9)
+li2 = [Assign2]
 val1 = copy.deepcopy(li)
 val2 = copy.deepcopy(li)
 val3 = copy.deepcopy(li)
-
+val4 = copy.deepcopy(li2)
+val5 = copy.deepcopy(li2)
+val6 = copy.deepcopy(li2)
+print(prior_late(val1))
+print(prior_earl(val2))
+print(prior_stand(val3))
+print(prior_stand(val4))
+print(prior_earl(val5))
+print(prior_late(val6))
 
 
 
