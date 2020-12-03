@@ -28,6 +28,7 @@ def form_input():
     # add stuff
     if request.method == "POST":
         schedule = dict2Sched(session["schedule"])
+        print(schedule.assignments_dicts)
         schedule.create_calendar()
         session.pop("schedule")
         return render_template("output.html")
