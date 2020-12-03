@@ -28,6 +28,7 @@ def form_input():
     # add stuff
     if request.method == "POST":
         schedule = dict2Sched(session["schedule"])
+        print(schedule.assignments_dicts)
         schedule.create_calendar()
         session.pop("schedule")
         return render_template("output.html")
@@ -82,7 +83,6 @@ def assign_form():
             time = timeL[0] + ":00"
         else:
             time = timeL[0] + ":30"
-        print(f"name: {assign_name}, percent: {percent}, length: {est_time}, priority: {priority}, day: {day}, time: {time}")
         assignment = Assignment(assign_name, int(percent), int(est_time), (day, time), int(priority))
         sched = session["schedule"]
         schedule = dict2Sched(sched)
