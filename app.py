@@ -5,6 +5,7 @@ import sys
 
 app = Flask(__name__)
 app.secret_key = "b\r\t\xe01\x0c$\x8b\\\x99\x169\xa3Z\x11\x90c\xf5 \xf9y\x0bZ\x9c\x8b"
+app.config['JSON_SORT_KEYS'] = False
 
 def dict2Sched(dictobj):
     schedule = Schedule()
