@@ -47,6 +47,7 @@ def fill_early_group_sched(matrix, event_list):
     tracker = 0
     hhours_worked = 0
     totalHours = sum([a.time for a in event_list])
+    print(matrix)
     for row in matrix:
         for key in matrix[row]:
             if hhours_worked == 2.5:
@@ -58,7 +59,7 @@ def fill_early_group_sched(matrix, event_list):
             elif matrix[row][key] == "Available" and totalHours != 0:
                 hhours_worked += 0.5
                 matrix[row][key] = event_list[tracker].name
-                print(f"day: {matrix[row]}, time: {matrix[row][key]}, value: {matrix[row][key]}")
+                #print(f"day: {matrix[row]}, time: {matrix[row][key]}, value: {matrix[row][key]}")
                 event_list[tracker].time -= 0.5
                 if event_list[tracker].time == 0:
                     tracker += 1
