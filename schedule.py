@@ -123,6 +123,7 @@ class Schedule(object):
 	def create_calendar(self):
 		self.__generate_schedule()
 		self.__insert_blanks()
+		print(self.schedule)
 		output_first = (
     	"""
     	<!DOCTYPE html>
